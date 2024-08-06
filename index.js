@@ -1,13 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.dom = void 0;
+exports.createCanvas = createCanvas;
+exports._getImageData = _getImageData;
+exports.extractImage = extractImage;
+exports.writeImage = writeImage;
 var fs = require("fs");
 var jsdom_1 = require("jsdom");
-var dom = new jsdom_1.JSDOM("<!DOCTYPE html></html>");
-var window = dom.window;
-document = dom.window.document;
+exports.dom = new jsdom_1.JSDOM("<!DOCTYPE html></html>");
+var window = exports.dom.window;
+var document = exports.dom.window.document;
 function createCanvas() {
     var canvas = document.createElement("canvas");
-    dom.window.document.body.appendChild(canvas);
+    exports.dom.window.document.body.appendChild(canvas);
     return canvas;
 }
 function _getImageData(canvas) {
@@ -21,9 +26,3 @@ function writeImage(canvas, filename) {
     var image = _getImageData(canvas);
     fs.writeFileSync(filename, image, { encoding: "base64" });
 }
-module.exports = {
-    dom: dom,
-    createCanvas: createCanvas,
-    extractImage: extractImage,
-    writeImage: writeImage,
-};
